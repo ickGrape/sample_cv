@@ -36,6 +36,8 @@ def get_features(frames, pt1=(0, 0), pt2=None):
 
     return features  # feature[0]がsrc  feature[1]がtarget
 
+    S
+
 # BFMatcherを用いて特徴（キーポイントとdescription）の突合せを行いマッチするpointを求める
 # kp1　　：ターゲット画像のkeypoints
 # desc1　：ターゲット画像のdescriptors
@@ -73,45 +75,6 @@ def get_match_point(kp1, desc1, kp2, desc2):
     apt1 = np.array(target_position)
     apt2 = np.array(base_position)
     return apt1, apt2
-
-####　参考コード　ここから
-
-# # アフィン行列の推定
-# mtx = cv2.estimateAffinePartial2D(pt1, pt2)[0]
-
-# Affine行列から回転角、回転中心、拡大率を求める
-# mat ：上記で算出したアフィン行列
-#return da：回転角度(度) center　回転中心　s 拡大率
-def getRotateShift(mat):
-    da = -math.atan2(mat[1, 0], mat[0, 0])  # ラジアン
-    s = mat[0, 0] / math.cos(da)  # 拡大率
- 
-    m = np.zeros([2, 2]) 
-    m[0, 0] = 1 - mat[0, 0]
-    m[0, 1] = -mat[0, 1]
-    m[1, 0] = mat[0, 1]
-    m[1, 1] = m[0, 0]
- 
-    mm = np.zeros([2, 1])
-    mm[0, 0] = mat[0, 2]
-    mm[1, 0] = mat[1, 2]
- 
-    center = np.dot(np.linalg.inv(m), mm).reshape([2])
- 
-    return math.degrees(da), center, s
-
-
-def draw_match_points():
-    
-    # cv2.drawMatches()　　　：マッチングを行った2枚の画像を横方向に連結し，対応点を線でつないで描画する
-    # 
-    # cv2.drawMatchesKnn()　：上位k個の対応店を描画します。
-    #                         k=2 とした場合、各特徴点に対して2本のマッチング結果を示す直線を描画する
-    
-    pass
-
-#### //参考コード　ここまで
-
 
 
 
