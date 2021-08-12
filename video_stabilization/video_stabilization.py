@@ -61,7 +61,7 @@ def get_match_point(kp1, desc1, kp2, desc2):
 
     for match1, match2 in matches:
         if match1.distance < 0.7 * match2.distance:
-            goods.append(match)
+            goods.append(match1)
 
     target_position = []
     base_position = []
